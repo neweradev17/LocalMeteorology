@@ -1,4 +1,4 @@
-# Local Meteorology — Privacy-First Weather App
+# LocalMeteorology — Privacy-First Weather App
 
 A clean, fast, and privacy-respecting 7-day weather forecast mobile app built with **Expo** (React Native).
 
@@ -30,7 +30,7 @@ An internet connection is required. The app fetches map tiles, location data and
 ## 🔒 Privacy
 
 Most weather apps track your location, show intrusive ads, and send your data to multiple servers.  
-**Local Meteorology** was built differently.
+**LocalMeteorology** was built differently.
 
 The only data stored on your device is your **language preference** (`pt` or `en`).  
 No location history, no search history, no analytics, no third-party SDKs.
