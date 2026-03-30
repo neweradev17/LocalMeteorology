@@ -16,6 +16,8 @@ const DAILY_PARAMS = [
   'temperature_2m_max',
   'temperature_2m_min',
   'precipitation_sum',
+  'precipitation_probability_max',
+  'wind_speed_10m_max',
   'weather_code',
 ].join(',');
 
@@ -54,6 +56,8 @@ export const fetchForecast = async (
       temperature_2m_max: raw.daily.temperature_2m_max,
       temperature_2m_min: raw.daily.temperature_2m_min,
       precipitation_sum: raw.daily.precipitation_sum,
+      precipitation_probability_max: raw.daily.precipitation_probability_max,
+      wind_speed_10m_max: raw.daily.wind_speed_10m_max,
       weather_code: raw.daily.weather_code,
     },
     timezone: raw.timezone,

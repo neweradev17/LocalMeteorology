@@ -1,3 +1,4 @@
+//components/SearchBar.tsx
 import React, { useState, useRef } from 'react';
 import {
   View, TextInput, TouchableOpacity, FlatList,
@@ -82,7 +83,7 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={t('search_placeholder')}
-                placeholderTextColor="#3d6a8a"
+                placeholderTextColor="#7cb9e8"
                 returnKeyType="search"
                 autoCorrect={false}
                 autoCapitalize="words"
@@ -108,7 +109,8 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
                   data={results}
                   keyExtractor={(item) => String(item.place_id)}
                   keyboardShouldPersistTaps="handled"
-                  scrollEnabled={false}
+                  scrollEnabled={true}
+                  style={{maxHeight:260}}
                   ItemSeparatorComponent={() => <View style={styles.separator} />}
                   renderItem={({ item }) => {
                     const name = formatPlaceName(item);
@@ -184,16 +186,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(10, 24, 40, 0.88)',
     borderRadius: 18,
     borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.18)',
+    borderColor: 'rgba(0, 0, 0, 0.18)',
     overflow: 'hidden',
-    shadowColor: '#000',
+    shadowColor: 'transparent',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.45,
     shadowRadius: 16,
     elevation: 12,
   },
   cardFocused: {
-    borderColor: 'rgba(79, 195, 247, 0.55)',
     shadowOpacity: 0.6,
   },
   inputRow: {
@@ -203,15 +204,6 @@ const styles = StyleSheet.create({
     height: 52,
     gap: 10,
   },
-  iconWrap: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    backgroundColor: 'rgba(79, 195, 247, 0.12)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   input: {
     flex: 1,
     fontSize: 15,
@@ -238,7 +230,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(30, 58, 82, 0.8)',
+    backgroundColor: '#7cb9e8',
     marginHorizontal: 14,
   },
   dropdown: {
@@ -246,7 +238,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: 'rgba(19, 45, 68, 0.6)',
+    backgroundColor: 'rgba(63, 166, 255, 0.6)',
     marginHorizontal: 14,
   },
   resultItem: {
@@ -267,7 +259,7 @@ const styles = StyleSheet.create({
   },
   resultChevron: {
     fontSize: 18,
-    color: '#3d6a8a',
+    color: '#81caff',
     lineHeight: 20,
   },
   menuBtn: {
@@ -276,7 +268,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: 'rgba(10, 24, 40, 0.88)',
     borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.18)',
+    borderColor: 'rgba(130, 213, 252, 0.18)',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -291,7 +283,7 @@ const styles = StyleSheet.create({
   },
   menuDots: {
     fontSize: 22,
-    color: '#4a7fa5',
+    color: '#7cb9e8',
     lineHeight: 24,
     marginTop: -2,
   },

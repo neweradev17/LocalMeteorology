@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet,
-  SafeAreaView, StatusBar, Dimensions,
+  View, Text, TouchableOpacity, StyleSheet, StatusBar, Dimensions,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';  // ← substituído
 import { useLanguage } from '../i18n/LanguageContext';
 import { Language, translations, TranslationKey } from '../i18n/translations';
 
@@ -19,8 +19,8 @@ interface Props {
 }
 
 const LanguagePicker: React.FC<Props> = ({ onDone }) => {
-  const { setLanguage } = useLanguage();
-  const [selected, setSelected] = useState<Language>('en');
+  const { setLanguage, language } = useLanguage();
+  const [selected, setSelected] = useState<Language>(language ?? 'en');  // ← usa idioma actual se existir
 
   const tLocal = (key: TranslationKey): string =>
     translations[selected][key] ?? key;
@@ -31,7 +31,7 @@ const LanguagePicker: React.FC<Props> = ({ onDone }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right', 'bottom']}>
       <StatusBar barStyle="light-content" backgroundColor="#0a1b2a" />
       <View style={styles.container}>
         <View style={styles.topSection}>

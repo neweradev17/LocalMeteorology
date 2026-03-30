@@ -8,6 +8,7 @@ export interface Location {
 export interface NominatimResult {
   place_id: number;
   display_name: string;
+  name: string,
   lat: string;
   lon: string;
   address: {
@@ -36,6 +37,8 @@ export interface DailyWeatherData {
   temperature_2m_max: number[];
   temperature_2m_min: number[];
   precipitation_sum: number[];
+  precipitation_probability_max: number[];
+  wind_speed_10m_max: number[]; 
   weather_code: number[];
 }
 

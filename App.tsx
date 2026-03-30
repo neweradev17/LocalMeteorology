@@ -23,6 +23,7 @@ const MainApp: React.FC = () => {
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   if (!isLoaded) {
     return (
@@ -44,6 +45,7 @@ const MainApp: React.FC = () => {
     setError(null);
     setLoading(true);
     setSelectedLocation({ lat, lon, name });
+    setSelectedIndex(0);
     try {
       const data = await fetchForecast(lat, lon);
       setForecast(data);
@@ -57,6 +59,7 @@ const MainApp: React.FC = () => {
   const handleMapClick = async (lat: number, lon: number) => {
     setError(null);
     setLoading(true);
+    setSelectedIndex(0);
     try {
       const result = await reverseGeocode(lat, lon);
       const name = result ? formatPlaceName(result) : lat.toFixed(4) + ', ' + lon.toFixed(4);
@@ -109,9 +112,9 @@ const MainApp: React.FC = () => {
       )}
       {forecast && selectedLocation && !loading && (
         <>
-          <CurrentWeather forecast={forecast} location={selectedLocation} />
+          <CurrentWeather forecast={forecast} location={selectedLocation} selectedIndex={selectedIndex}/>
           {/* WeeklyForecast gets bottom padding so it clears the home indicator */}
-          <WeeklyForecast forecast={forecast} bottomInset={insets.bottom} />
+          <WeeklyForecast forecast={forecast} bottomInset={insets.bottom} selectedIndex={selectedIndex} onSelectIndex={setSelectedIndex}/>
         </>
       )}
     </View>
