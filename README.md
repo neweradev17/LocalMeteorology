@@ -11,9 +11,8 @@ The only data stored locally on your device is your language preference.
 - **Interactive map** via Leaflet + OpenStreetMap
 - **Location search** powered by Nominatim with smart filtering
 - **Tap anywhere on the map** to get the local forecast
-- **English and Portuguese** — language chosen on first launch, adjustable at any time from the menu
+- **English and Portuguese** — language chosen on first launch, adjustable anytime from the menu
 - Clean and modern UI optimised for mobile
-- Open source under MIT license
 
 ## 🛠 Tech Stack
 
@@ -41,14 +40,22 @@ When you search for a location or tap the map, coordinates are sent directly to:
 
 These are open, privacy-respecting services. No data is sent to any server owned by this app.
 
+## Contributing
+
+This is a personal project. I am **not accepting pull requests** or external contributions at this time.
+
+If you find a bug or have a feature request, feel free to open an issue — but please understand that I may not have time to address every one.
+
+Thank you for respecting this!
+
 ## Screenshots
 
 *(Add 3–4 screenshots here — highly recommended)*
 
 ## Installation
+
 ```bash
 git clone https://github.com/neweradev17/LocalMeteorology.git
 cd LocalMeteorology
 npm install
 npx expo start
-```
