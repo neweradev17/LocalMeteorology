@@ -42,7 +42,7 @@ These are open, privacy-respecting services. No data is sent to any server owned
 
 ## Contributing
 
-This is a personal project. I am **not accepting pull requests** or external contributions at this time.
+This is a personal project. I am **not accepting pull requests**.
 
 If you find a bug or have a feature request, feel free to open an issue — but please understand that I may not have time to address every one.
 
