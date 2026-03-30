@@ -47,8 +47,8 @@ These are open, privacy-respecting services. No data is sent to any server owned
 
 ## Installation
 ```bash
-git clone https://github.com/yourusername/weatherly.git
-cd weatherly
+git clone https://github.com/neweradev17/LocalMeteorology.git
+cd LocalMeteorology
 npm install
 npx expo start
 ```
