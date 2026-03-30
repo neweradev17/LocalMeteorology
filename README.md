@@ -11,7 +11,7 @@ The only data stored locally on your device is your language preference.
 - **Interactive map** via Leaflet + OpenStreetMap
 - **Location search** powered by Nominatim with smart filtering
 - **Tap anywhere on the map** to get the local forecast
-- **Multilingual** — English and Portuguese
+- **English and Portuguese** — language chosen on first launch, adjustable at any time from the menu
 - Clean and modern UI optimised for mobile
 - Open source under MIT license
 
