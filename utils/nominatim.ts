@@ -7,7 +7,12 @@ const HEADERS = {
 };
 
 const EU_COUNTRIES =
-  'pt,es,fr,de,it,gb,nl,be,ch,at,pl,se,no,dk,fi,ie,gr,cz,hu,ro,bg,hr,sk,si,ee,lv,lt,lu,mt,cy';
+  'es,fr,de,it,gb,nl,be,ch,at,pl,se,no,dk,fi,ie,gr,cz,hu,ro,bg,hr,sk,si,ee,lv,lt,lu,mt,cy';
+
+const RELEVANT_TYPES = new Set([
+  'city', 'town', 'village', 'municipality',
+  'administrative', 'hamlet', 'suburb', 'quarter',
+]);
 
 const normalize = (s: string) =>
   s.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '');
@@ -16,11 +21,15 @@ const isRelevant = (result: NominatimResult, query: string): boolean => {
   const normName = normalize(result.name ?? '');
   const normQuery = normalize(query.trim());
   if (!normName || !normQuery) return false;
-  return normName.startsWith(normQuery);
+  if (!normName.startsWith(normQuery)) return false;
+  return RELEVANT_TYPES.has(result.type) || RELEVANT_TYPES.has(result.class);
 };
 
-const dedupeKey = (result: NominatimResult): string =>
-  normalize(result.display_name);
+const dedupeKey = (result: NominatimResult): string => {
+  const lat = parseFloat(result.lat).toFixed(2);
+  const lon = parseFloat(result.lon).toFixed(2);
+  return `${lat},${lon}`;
+};
 
 export const searchPlaces = async (query: string): Promise<NominatimResult[]> => {
   if (!query || query.trim().length < 2) return [];
@@ -41,7 +50,7 @@ export const searchPlaces = async (query: string): Promise<NominatimResult[]> =>
   const ptFiltered = ptData.filter((r) => isRelevant(r, query));
   const euFiltered = euData.filter((r) => isRelevant(r, query));
 
-  // Portugal primeiro, depois Europa — sem duplicados por display_name normalizado
+  // Portugal primeiro, depois Europa — sem duplicados por coordenadas
   const seen = new Set<string>(ptFiltered.map(dedupeKey));
   const merged = [...ptFiltered];
 

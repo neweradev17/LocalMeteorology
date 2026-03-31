@@ -11,6 +11,8 @@ export interface NominatimResult {
   name: string,
   lat: string;
   lon: string;
+  type: string;
+  class: string;
   address: {
     city?: string;
     town?: string;
