@@ -186,7 +186,7 @@
     },
     card: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.88)',
+      backgroundColor: 'rgba(0, 0, 0, 0.18)',
       borderRadius: 18,
       borderWidth: 1,
       borderColor: 'rgba(0, 0, 0, 0.18)',
