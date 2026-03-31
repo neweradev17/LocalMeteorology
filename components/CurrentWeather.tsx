@@ -70,8 +70,8 @@ export default CurrentWeather;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#0d2137',
-    borderTopWidth: 1, borderTopColor: '#1e3a52',
+    backgroundColor: '#0f0f0f',
+    borderTopWidth: 1, borderTopColor: '#0f0f0f',
     paddingHorizontal: 16, paddingVertical: 12,
   },
   topRow: {
@@ -79,17 +79,17 @@ const styles = StyleSheet.create({
     alignItems: 'center', marginBottom: 10,
   },
   locationBlock: { flex: 1, paddingRight: 12 },
-  locationName: { fontSize: 20, fontWeight: '700', color: '#e0f4ff', letterSpacing: 0.3 },
-  conditionLabel: { fontSize: 13, color: '#7cb9e8', marginTop: 2, letterSpacing: 0.5, textTransform: 'uppercase' },
+  locationName: { fontSize: 20, fontWeight: '700', color: '#ffffff', letterSpacing: 0.3 },
+  conditionLabel: { fontSize: 13, color: '#FFAA00', marginTop: 2, letterSpacing: 0.5, textTransform: 'uppercase' },
   tempBlock: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   icon: { fontSize: 28 },
-  temperature: { fontSize: 40, fontWeight: '200', color: '#e0f4ff', letterSpacing: -1 },
+  temperature: { fontSize: 40, fontWeight: '200', color: '#e0e0e0', letterSpacing: -1 },
   detailsRow: { flexDirection: 'row', justifyContent: 'space-between' },
   pill: {
     flexDirection: 'row', alignItems: 'center',
-    backgroundColor: '#132d44', borderRadius: 20,
+    backgroundColor: '#fcc558', borderRadius: 20,
     paddingHorizontal: 8, paddingVertical: 4, gap: 4,
   },
   pillIcon: { fontSize: 12 },
-  pillLabel: { fontSize: 12, color: '#a0cce0', fontWeight: '500' },
+  pillLabel: { fontSize: 12, color: '#0f0f0f', fontWeight: '500' },
 });

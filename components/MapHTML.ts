@@ -8,17 +8,17 @@ export const getMapHTML = (): string => `
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #e8e0d8; }
+    body { background: #e0e0e0; }
     #map { width: 100vw; height: 100vh; }
     .pin-pulse {
       width: 16px; height: 16px;
-      background: #4fc3f7; border: 2px solid #fff;
+      background: #FFAA00; border: 2px solid #fff;
       border-radius: 50%; position: relative;
     }
     .pin-pulse::after {
       content: ''; position: absolute;
       top: -6px; left: -6px; width: 28px; height: 28px;
-      border-radius: 50%; border: 2px solid #4fc3f7;
+      border-radius: 50%; border: 2px solid #FFAA00;
       animation: pulse 1.5s ease-out infinite; opacity: 0;
     }
     @keyframes pulse {
@@ -26,12 +26,12 @@ export const getMapHTML = (): string => `
       100% { transform: scale(2);   opacity: 0; }
     }
     .leaflet-popup-content-wrapper {
-      background: #0f2132; color: #e0f4ff;
-      border: 1px solid #4fc3f7; border-radius: 8px;
+      background: #0f0f0f; color: #e0e0e0;
+      border: 1px solid #FFAA00; border-radius: 8px;
       font-family: sans-serif; font-size: 13px;
     }
-    .leaflet-popup-tip { background: #0f2132; }
-    .leaflet-popup-close-button { color: #4fc3f7 !important; }
+    .leaflet-popup-tip { background: #0f0f0f; }
+    .leaflet-popup-close-button { color: #FFAA00 !important; }
   </style>
 </head>
 <body>

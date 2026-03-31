@@ -60,7 +60,7 @@
           startInLoadingState
           renderLoading={() => (
             <View style={styles.loader}>
-              <ActivityIndicator size="large" color="#4fc3f7" />
+              <ActivityIndicator size="large" color="#FFAA00" />
             </View>
           )}
           style={styles.webview}
@@ -74,11 +74,11 @@
 
   const styles = StyleSheet.create({
     container: { flex: 1, overflow: 'hidden', borderRadius: 12 },
-    webview: { flex: 1, backgroundColor: '#0f2132' },
+    webview: { flex: 1, backgroundColor: '#0f0f0f' },
     loader: {
-      ...StyleSheet.absoluteFillObject,
+      ...StyleSheet.absoluteFill,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#0f2132',
+      backgroundColor: '#0f0f0f',
     },
   });

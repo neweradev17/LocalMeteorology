@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
-import { LanguagePicker } from './screens/LanguagePicker';
+import  LanguagePicker from './screens/LanguagePicker';
 import { SearchBar } from './components/SearchBar';
 import { WeatherMap } from './components/WeatherMap';
 import { CurrentWeather } from './components/CurrentWeather';
@@ -28,7 +28,7 @@ const MainApp: React.FC = () => {
   if (!isLoaded) {
     return (
       <View style={styles.splash}>
-        <ActivityIndicator size="large" color="#4fc3f7" />
+        <ActivityIndicator size="large" color="#ffffff" />
       </View>
     );
   }
@@ -79,8 +79,6 @@ const MainApp: React.FC = () => {
       <StatusBar barStyle="light-content" backgroundColor="#0a1b2a" translucent />
       <View style={styles.mapContainer}>
         <WeatherMap pinLocation={selectedLocation} onMapClick={handleMapClick} />
-
-        {/* Floating SearchBar — respects status bar height */}
         <View style={[styles.searchOverlay, { top: insets.top + 14 }]}>
           <SearchBar
             value={searchText}
@@ -92,7 +90,7 @@ const MainApp: React.FC = () => {
 
         {loading && (
           <View style={styles.mapOverlay}>
-            <ActivityIndicator size="large" color="#4fc3f7" />
+            <ActivityIndicator size="large" color="#ffffff" />
             <Text style={styles.loadingText}>{t('loading')}</Text>
           </View>
         )}
@@ -113,7 +111,6 @@ const MainApp: React.FC = () => {
       {forecast && selectedLocation && !loading && (
         <>
           <CurrentWeather forecast={forecast} location={selectedLocation} selectedIndex={selectedIndex}/>
-          {/* WeeklyForecast gets bottom padding so it clears the home indicator */}
           <WeeklyForecast forecast={forecast} bottomInset={insets.bottom} selectedIndex={selectedIndex} onSelectIndex={setSelectedIndex}/>
         </>
       )}
@@ -134,9 +131,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  splash: { flex: 1, backgroundColor: '#0a1b2a', alignItems: 'center', justifyContent: 'center' },
-  safeArea: { flex: 1, backgroundColor: '#0a1b2a' },
-  container: { flex: 1, backgroundColor: '#0a1b2a' },
+  splash: { flex: 1, backgroundColor: '#0f0f0f', alignItems: 'center', justifyContent: 'center' },
+  safeArea: { flex: 1, backgroundColor: '#0f0f0f' },
+  container: { flex: 1, backgroundColor: '#0f0f0f' },
   mapContainer: { flex: 1, position: 'relative' },
   searchOverlay: {
     position: 'absolute',
@@ -150,17 +147,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(10, 27, 42, 0.65)',
     alignItems: 'center', justifyContent: 'center', gap: 12,
   },
-  loadingText: { color: '#7cb9e8', fontSize: 14, letterSpacing: 0.5 },
+  loadingText: { color: '#e0e0e0', fontSize: 14, letterSpacing: 0.5 },
   hintContainer: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
     alignItems: 'center', justifyContent: 'flex-end',
   },
   hintBadge: {
-    backgroundColor: 'rgba(13, 33, 55, 0.85)',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
     paddingHorizontal: 16, paddingVertical: 8,
-    borderRadius: 20, borderWidth: 1, borderColor: '#1e3a52',
+    borderRadius: 20, borderWidth: 1, borderColor: '#FFAA00',
   },
-  hintText: { color: '#7cb9e8', fontSize: 13 },
+  hintText: { color: '#e0e0e0', fontSize: 13 },
   errorBanner: {
     backgroundColor: '#2d1414', paddingHorizontal: 16, paddingVertical: 10,
     borderTopWidth: 1, borderTopColor: '#5c2222',
