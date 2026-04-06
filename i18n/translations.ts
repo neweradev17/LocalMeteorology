@@ -1,4 +1,4 @@
-//i18n/translations.ts
+// i18n/translations.ts
 export type Language = 'pt' | 'en';
 
 export type TranslationKey =
@@ -23,7 +23,18 @@ export type TranslationKey =
   | 'weather_violent_showers' | 'weather_slight_snow_showers' | 'weather_heavy_snow_showers'
   | 'weather_thunderstorm' | 'weather_thunderstorm_hail' | 'weather_unknown'
   | 'error_forecast' | 'error_location'
-  | 'lang_screen_title' | 'lang_screen_subtitle' | 'lang_screen_continue';
+  | 'lang_screen_title' | 'lang_screen_subtitle' | 'lang_screen_continue'
+  // Menu
+  | 'menu_language' | 'menu_privacy'
+  // Privacy modal
+  | 'privacy_title' | 'privacy_subtitle'
+  | 'privacy_no_tracking_heading' | 'privacy_no_tracking_body'
+  | 'privacy_local_storage_heading' | 'privacy_local_storage_body'
+  | 'privacy_network_heading' | 'privacy_network_body'
+  | 'privacy_no_backend_heading' | 'privacy_no_backend_body'
+  | 'privacy_third_party_heading' | 'privacy_third_party_body'
+  | 'privacy_footer'
+  | 'privacy_close';
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   pt: {
@@ -71,6 +82,24 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     lang_screen_title: 'Bem-vindo',
     lang_screen_subtitle: 'Escolha o seu idioma',
     lang_screen_continue: 'Continuar',
+    // Menu
+    menu_language: 'Idioma',
+    menu_privacy: 'Privacidade',
+    // Privacy modal
+    privacy_title: 'Política de Privacidade',
+    privacy_subtitle: 'Uma app de meteorologia que te respeita.',
+    privacy_no_tracking_heading: 'Sem rastreamento',
+    privacy_no_tracking_body: 'O LocalMeteorology não te rastreia. Não existem análises, relatórios de falhas, SDKs de terceiros nem identificadores publicitários. A tua utilização fica inteiramente no teu dispositivo.',
+    privacy_local_storage_heading: 'O que é guardado localmente',
+    privacy_local_storage_body: 'O único dado guardado no teu dispositivo é a tua preferência de idioma (pt ou en). Sem histórico de localização, sem histórico de pesquisa, sem quaisquer dados pessoais.',
+    privacy_network_heading: 'Pedidos de rede',
+    privacy_network_body: 'Quando pesquisas um local ou toques no mapa, as coordenadas são enviadas diretamente para o Nominatim (OpenStreetMap) para geocodificação inversa e para o Open-Meteo para dados meteorológicos. São serviços abertos que respeitam a privacidade. Nada é encaminhado por qualquer servidor desta app.',
+    privacy_no_backend_heading: 'Sem servidor próprio',
+    privacy_no_backend_body: 'Esta app não tem servidor próprio. Não existe sistema de conta, sem autenticação, e não é possível associar as tuas consultas meteorológicas à tua identidade.',
+    privacy_third_party_heading: 'Serviços de terceiros',
+    privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nAmbos operam sob licenças de dados abertos e publicam as suas próprias políticas de privacidade. Nenhum exige conta ou chave de API por parte do utilizador final.',
+    privacy_footer: 'Construído com código aberto. Sem contas. Sem anúncios.',
+    privacy_close: 'Fechar',
   },
   en: {
     feels_like: 'Feels like',
@@ -117,5 +146,23 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     lang_screen_title: 'Welcome',
     lang_screen_subtitle: 'Choose your language',
     lang_screen_continue: 'Continue',
+    // Menu
+    menu_language: 'Language',
+    menu_privacy: 'Privacy',
+    // Privacy modal
+    privacy_title: 'Privacy Policy',
+    privacy_subtitle: 'A weather app that respects you.',
+    privacy_no_tracking_heading: 'No Tracking',
+    privacy_no_tracking_body: 'LocalMeteorology does not track you. There are no analytics, no crash reporters, no third-party SDKs, and no advertising identifiers. Your usage stays entirely on your device.',
+    privacy_local_storage_heading: 'What is stored locally',
+    privacy_local_storage_body: 'The only data saved on your device is your language preference (pt or en). No location history, no search history, no personal data of any kind.',
+    privacy_network_heading: 'Network requests',
+    privacy_network_body: 'When you search for a place or tap the map, coordinates are sent directly to Nominatim (OpenStreetMap) for reverse geocoding and to Open-Meteo for weather forecast data. These are open, privacy-respecting services. Nothing is routed through any server owned by this app.',
+    privacy_no_backend_heading: 'No backend',
+    privacy_no_backend_body: 'This app has no backend server of its own. There is no account system, no sign-in, and no way for anyone to associate your weather lookups with your identity.',
+    privacy_third_party_heading: 'Third-party services',
+    privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nBoth operate under open-data licences and publish their own privacy policies. Neither requires an account or API key from end users.',
+    privacy_footer: 'Built on open source. No accounts. No ads.',
+    privacy_close: 'Close',
   },
 };

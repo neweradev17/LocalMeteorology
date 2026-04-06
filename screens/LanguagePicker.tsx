@@ -43,7 +43,7 @@ const LanguagePicker: React.FC<Props> = ({ onDone }) => {
       <View style={styles.container}>
         <View style={styles.topSection}>
           <Image
-            source={require('../assets/LM-icon-transparent-maior.png')}
+            source={require('../assets/LM-icon-transparent.png')}
             style={styles.appIcon}
             resizeMode="contain"
           />

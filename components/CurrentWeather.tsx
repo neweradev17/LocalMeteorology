@@ -11,7 +11,6 @@ interface Props {
   selectedIndex: number;
 }
 
-// ── SVG Icons ────────────────────────────────────────────────────────────────
 
 const IconThermometer = ({ size = 14, color = '#000000' }) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
