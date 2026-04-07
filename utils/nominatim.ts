@@ -50,7 +50,6 @@ export const searchPlaces = async (query: string): Promise<NominatimResult[]> =>
   const ptFiltered = ptData.filter((r) => isRelevant(r, query));
   const euFiltered = euData.filter((r) => isRelevant(r, query));
 
-  // Portugal primeiro, depois Europa — sem duplicados por coordenadas
   const seen = new Set<string>(ptFiltered.map(dedupeKey));
   const merged = [...ptFiltered];
 

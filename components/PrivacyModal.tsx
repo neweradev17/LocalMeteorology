@@ -9,6 +9,9 @@ import {
   StyleSheet,
   Animated,
   Dimensions,
+  PanResponder,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path, Circle, Line, Rect, Polyline } from 'react-native-svg';
@@ -22,7 +25,6 @@ interface Props {
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-// Minimal SVG icons matching the app's existing Svg/react-native-svg usage
 const Icon: React.FC<{ name: string; size?: number; color?: string }> = ({
   name,
   size = 20,
@@ -91,14 +93,47 @@ const SECTIONS: { icon: string; headingKey: TranslationKey; bodyKey: Translation
   { icon: 'shield',   headingKey: 'privacy_third_party_heading',    bodyKey: 'privacy_third_party_body' },
 ];
 
+const SWIPE_DOWN_THRESHOLD = 40; 
+const DISMISS_SCROLL_THRESHOLD = -30; 
+
 const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
   const { t } = useLanguage();
 
   const slideAnim = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim  = useRef(new Animated.Value(0)).current;
+
+  const scrollY      = useRef(0);
+  const isDismissing = useRef(false);
+
+  const handlePanResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_evt, gestureState) => {
+        return gestureState.dy > 5 && Math.abs(gestureState.dy) > Math.abs(gestureState.dx);
+      },
+      onPanResponderMove: (_evt, gestureState) => {
+        if (gestureState.dy > 0) {
+          slideAnim.setValue(gestureState.dy);
+        }
+      },
+      onPanResponderRelease: (_evt, gestureState) => {
+        if (gestureState.dy >= SWIPE_DOWN_THRESHOLD && !isDismissing.current) {
+          isDismissing.current = true;
+          onClose();
+        } else {
+          Animated.spring(slideAnim, {
+            toValue: 0,
+            damping: 22,
+            stiffness: 180,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    })
+  ).current;
 
   useEffect(() => {
     if (visible) {
+      isDismissing.current = false;
       Animated.parallel([
         Animated.timing(fadeAnim, {
           toValue: 1,
@@ -128,6 +163,18 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
     }
   }, [visible]);
 
+  const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollY.current = e.nativeEvent.contentOffset.y;
+  };
+
+  const handleScrollEndDrag = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+    if (offsetY < DISMISS_SCROLL_THRESHOLD && !isDismissing.current) {
+      isDismissing.current = true;
+      onClose();
+    }
+  };
+
   return (
     <Modal
       visible={visible}
@@ -136,42 +183,46 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
       onRequestClose={onClose}
       statusBarTranslucent
     >
-      {/* Backdrop */}
+
       <Animated.View style={[styles.backdrop, { opacity: fadeAnim }]}>
         <TouchableOpacity style={StyleSheet.absoluteFill} onPress={onClose} activeOpacity={1} />
       </Animated.View>
 
-      {/* Sheet */}
       <Animated.View style={[styles.sheet, { transform: [{ translateY: slideAnim }] }]}>
         <SafeAreaView style={styles.safeArea} edges={['bottom']}>
-          {/* Handle */}
-          <View style={styles.handle} />
 
-          {/* Header */}
+          <View
+            {...handlePanResponder.panHandlers}
+            style={styles.handleContainer}
+          >
+            <TouchableOpacity
+              onPress={onClose}
+              activeOpacity={0.7}
+              hitSlop={{ top: 16, bottom: 16, left: 80, right: 80 }}
+            >
+              <View style={styles.handle} />
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.header}>
             <View style={styles.headerLeft}>
               <Icon name="shield" size={22} color="#FFAA00" />
               <Text style={styles.title}>{t('privacy_title')}</Text>
             </View>
-            <TouchableOpacity
-              onPress={onClose}
-              style={styles.closeBtn}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-            >
-              <Icon name="x" size={18} color="#ffffff" />
-            </TouchableOpacity>
           </View>
 
           <Text style={styles.subtitle}>{t('privacy_subtitle')}</Text>
 
-          {/* Divider */}
           <View style={styles.headerDivider} />
 
-          {/* Content */}
           <ScrollView
             style={styles.scroll}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
+            bounces={true}
+            onScroll={handleScroll}
+            onScrollEndDrag={handleScrollEndDrag}
+            scrollEventThrottle={16}
           >
             {SECTIONS.map((section, index) => (
               <View key={index} style={styles.section}>
@@ -188,7 +239,6 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
               </View>
             ))}
 
-            {/* Footer note */}
             <View style={styles.footer}>
               <Text style={styles.footerText}>{t('privacy_footer')}</Text>
             </View>
@@ -217,7 +267,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     borderWidth: 1,
     borderBottomWidth: 0,
-    borderColor: 'rgba(255,170,0,0.2)',
+    borderColor: '#fcc558',
     shadowColor: '#FFAA00',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.12,
@@ -228,14 +278,18 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
   },
+  handleContainer: {
+    alignSelf: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+    marginTop: 2,
+    marginBottom: 0,
+  },
   handle: {
     width: 36,
     height: 4,
     borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.18)',
-    alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 4,
+    backgroundColor: '#fcc558',
   },
   header: {
     flexDirection: 'row',
@@ -256,17 +310,9 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     letterSpacing: 0.3,
   },
-  closeBtn: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   subtitle: {
     fontSize: 13,
-    color: '#FFAA00',
+    color: '#ffffff',
     paddingHorizontal: 20,
     paddingTop: 2,
     paddingBottom: 14,
@@ -275,7 +321,7 @@ const styles = StyleSheet.create({
   },
   headerDivider: {
     height: 1,
-    backgroundColor: 'rgba(255,170,0,0.2)',
+    backgroundColor: '#FFAA00',
     marginHorizontal: 20,
   },
   scroll: {
@@ -299,27 +345,27 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 10,
-    backgroundColor: 'rgba(255,170,0,0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
     borderWidth: 1,
-    borderColor: 'rgba(255,170,0,0.2)',
+    borderColor: '#FFAA00',
     alignItems: 'center',
     justifyContent: 'center',
   },
   sectionHeading: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
+    color: '#FFAA00',
     letterSpacing: 0.2,
   },
   sectionBody: {
     fontSize: 13.5,
-    color: '#b0b0b0',
+    color: '#ffffff',
     lineHeight: 21,
     paddingLeft: 42,
   },
   sectionDivider: {
     height: 1,
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: '#fcc558',
     marginVertical: 16,
     marginLeft: 42,
   },

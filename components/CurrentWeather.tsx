@@ -67,7 +67,6 @@ const IconArrowDown = ({ size = 11, color = '#0099ff' }) => (
   </Svg>
 );
 
-// ── Component ─────────────────────────────────────────────────────────────────
 
 const CurrentWeather: React.FC<Props> = ({ forecast, location, selectedIndex }) => {
   const { current, daily } = forecast;
@@ -133,7 +132,6 @@ const CurrentWeather: React.FC<Props> = ({ forecast, location, selectedIndex }) 
   );
 };
 
-// ── DetailPill ────────────────────────────────────────────────────────────────
 
 type PillLabel = string | React.ReactNode;
 
@@ -151,7 +149,6 @@ const DetailPill: React.FC<{ icon: React.ReactNode; label: PillLabel }> = ({ ico
 export { CurrentWeather };
 export default CurrentWeather;
 
-// ── Styles ────────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   card: {

@@ -27,7 +27,6 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
   const [showPrivacy, setShowPrivacy] = useState(false);
   const { t, language } = useLanguage();
 
-  // Search only when the user presses the Search/Enter key
   const handleSubmit = async () => {
     const query = value.trim();
     if (query.length < 2) return;
@@ -84,7 +83,6 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
     <TouchableWithoutFeedback onPress={() => setShowMenu(false)}>
       <View style={styles.wrapper}>
         <View style={styles.row}>
-          {/* Main pill input */}
           <View style={[styles.card, focused && styles.cardFocused]}>
             <View style={styles.inputRow}>
               <TextInput
@@ -111,7 +109,6 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
               )}
             </View>
 
-            {/* Results dropdown */}
             {showDropdown && (
               <View style={styles.dropdown}>
                 <View style={styles.divider} />
@@ -159,7 +156,6 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
 
         {showMenu && (
           <View style={styles.menuDropdown}>
-            {/* Language */}
             <TouchableOpacity
               style={styles.menuItem}
               onPress={(e) => {
@@ -175,10 +171,8 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
               <Text style={styles.menuItemText}>{languageLabel}</Text>
             </TouchableOpacity>
 
-            {/* Divider between items */}
             <View style={styles.menuDivider} />
 
-            {/* Privacy */}
             <TouchableOpacity
               style={styles.menuItem}
               onPress={(e) => {
@@ -196,7 +190,6 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
           </View>
         )}
 
-        {/* Privacy Modal */}
         <PrivacyModal
           visible={showPrivacy}
           onClose={() => setShowPrivacy(false)}
