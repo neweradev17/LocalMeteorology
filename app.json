@@ -4,7 +4,7 @@
     "slug": "LocalMeteorology",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/LM-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/LM-icon.png",
@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.neweradev.LocalMeteorology"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,9 +23,6 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.neweradev.LocalMeteorology"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
