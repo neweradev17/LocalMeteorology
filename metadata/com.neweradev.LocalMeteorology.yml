@@ -1,0 +1,52 @@
+Categories:
+  - Weather
+License: MIT
+WebSite: https://github.com/neweradev17/LocalMeteorology
+SourceCode: https://github.com/neweradev17/LocalMeteorology
+IssueTracker: https://github.com/neweradev17/LocalMeteorology/issues
+Changelog: https://github.com/neweradev17/LocalMeteorology/releases
+
+Summary: Privacy-first 7-day weather forecast app
+Description: |
+  A clean, fast, and privacy-respecting weather app built with Expo (React Native).
+
+  Features:
+  - 7-day weather forecast with detailed daily views
+  - Interactive map using OpenStreetMap + Leaflet
+  - Location search powered by Nominatim
+  - No accounts, no tracking, no ads
+  - Only language preference is stored locally
+  - Supports English and Portuguese
+
+  All data is fetched directly from open services (Open-Meteo and OpenStreetMap).
+
+AutoName: LocalMeteorology
+
+RepoType: git
+Repo: https://github.com/neweradev17/LocalMeteorology.git
+
+Builds:
+  - versionName: "1.0.0"
+    versionCode: 1
+    commit: 1.0.0
+    subdir: android
+    gradle:
+      - :app
+
+MaintainerNotes: |
+  This is an Expo React Native app in bare workflow.
+  The android/ folder was generated with `npx expo prebuild`.
+  F-Droid builds directly with Gradle in the android subdirectory.
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckData: versionName|versionCode
+CurrentVersion: "1.0.0"
+CurrentVersionCode: 1
+
+Screenshots:
+  phone:
+    - screenshots/01-language.png
+    - screenshots/02-map.png
+    - screenshots/03-forecast.png
+    - screenshots/04-privacy.png
