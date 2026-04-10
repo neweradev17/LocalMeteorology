@@ -50,10 +50,10 @@ Thank you for respecting this!
 
 ## Screenshots
 
-![Screenshot of the app](IMG_20260410_195108.jpg)
-![Screenshot of the app](IMG_20260410_195123.jpg)
-![Screenshot of the app](IMG_20260410_195142.jpg)
-![Screenshot of the app](IMG_20260410_195157.jpg)
+<img src="IMG_20260410_195108.jpg" alt="Screenshot of the app" width="600">
+<img src="IMG_20260410_195123.jpg" alt="Screenshot of the app" width="600">
+<img src="IMG_20260410_195142.jpg" alt="Screenshot of the app" width="600">
+<img src="IMG_20260410_195157.jpg" alt="Screenshot of the app" width="600">
 
 ## Installation
 
