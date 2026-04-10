@@ -50,7 +50,10 @@ Thank you for respecting this!
 
 ## Screenshots
 
-*(Add 3–4 screenshots here — highly recommended)*
+![Screenshot of the app](IMG_20260410_195108.jpg)
+![Screenshot of the app](IMG_20260410_195123.jpg)
+![Screenshot of the app](IMG_20260410_195142.jpg)
+![Screenshot of the app](IMG_20260410_195157.jpg)
 
 ## Installation
 
