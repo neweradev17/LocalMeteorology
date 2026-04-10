@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/LM-icon-transparent.png",
         "monochromeImage": "./assets/LM-icon.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.neweradev.LocalMeteorology"
     },
     "web": {
       "favicon": "./assets/favicon.png"
