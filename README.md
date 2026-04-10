@@ -52,8 +52,8 @@ Thank you for respecting this!
 
 | | |
 |-|-|
-| <img src="IMG_20260410_195108.jpg" alt="Screenshot 1" width="400"> | <img src="IMG_20260410_195123.jpg" alt="Screenshot 2" width="400"> |
-| <img src="IMG_20260410_195142.jpg" alt="Screenshot 3" width="400"> | <img src="IMG_20260410_195157.jpg" alt="Screenshot 4" width="400"> |
+| <img src="assets/S0.png" alt="Screenshot 1" width="400"> | <img src="assets/S1.png" alt="Screenshot 2" width="400"> |
+| <img src="assets/S2.png" alt="Screenshot 3" width="400"> | <img src="assets/S3.png" alt="Screenshot 4" width="400"> |
 
 ## Installation
 
