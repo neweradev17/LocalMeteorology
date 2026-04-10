@@ -1,5 +1,5 @@
 Categories:
-  - Weather
+  - Science & Education
 License: MIT
 WebSite: https://github.com/neweradev17/LocalMeteorology
 SourceCode: https://github.com/neweradev17/LocalMeteorology
@@ -11,12 +11,12 @@ Description: |
   A clean, fast, and privacy-respecting weather app built with Expo (React Native).
 
   Features:
-  - 7-day weather forecast with detailed daily views
-  - Interactive map using OpenStreetMap + Leaflet
-  - Location search powered by Nominatim
-  - No accounts, no tracking, no ads
-  - Only language preference is stored locally
-  - Supports English and Portuguese
+  * 7-day weather forecast with detailed daily views
+  * Interactive map using OpenStreetMap + Leaflet
+  * Location search powered by Nominatim
+  * No accounts, no tracking, no ads
+  * Only language preference is stored locally
+  * Supports English and Portuguese
 
   All data is fetched directly from open services (Open-Meteo and OpenStreetMap).
 
@@ -40,13 +40,5 @@ MaintainerNotes: |
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-UpdateCheckData: versionName|versionCode
 CurrentVersion: "1.0.0"
 CurrentVersionCode: 1
-
-Screenshots:
-  phone:
-    - screenshots/01-language.png
-    - screenshots/02-map.png
-    - screenshots/03-forecast.png
-    - screenshots/04-privacy.png
