@@ -1,4 +1,3 @@
-// utils/weatherCodes.ts
 import { TranslationKey } from '../i18n/translations';
 
 export interface WeatherCodeEntry {

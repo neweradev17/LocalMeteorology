@@ -1,4 +1,3 @@
-// i18n/translations.ts
 export type Language = 'pt' | 'en';
 
 export type TranslationKey =
@@ -98,7 +97,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     privacy_no_backend_body: 'Esta app não tem servidor próprio. Não existe sistema de conta, autenticação, e não é possível associar as tuas consultas meteorológicas à tua identidade.',
     privacy_third_party_heading: 'Serviços de terceiros',
     privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nAmbos operam sob licenças de dados abertos e publicam as suas próprias políticas de privacidade. Nenhum exige conta ou chave de API por parte do utilizador final.',
-    privacy_footer: 'Construído com código aberto. Sem contas. Sem anúncios.',
+    privacy_footer: 'Código aberto',
     privacy_close: 'Fechar',
   },
   en: {
@@ -162,7 +161,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     privacy_no_backend_body: 'This app has no backend server of its own. There is no account system, no sign-in, and no way for anyone to associate your weather lookups with your identity.',
     privacy_third_party_heading: 'Third-party services',
     privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nBoth operate under open-data licences and publish their own privacy policies. Neither requires an account or API key from end users.',
-    privacy_footer: 'Built on open source. No accounts. No ads.',
+    privacy_footer: 'Open source code.',
     privacy_close: 'Close',
   },
 };

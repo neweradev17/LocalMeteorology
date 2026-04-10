@@ -1,4 +1,3 @@
-//utils/opnemeteo.ts
 import { ForecastData } from '../types/weather';
 
 const BASE_URL = 'https://api.open-meteo.com/v1/forecast';

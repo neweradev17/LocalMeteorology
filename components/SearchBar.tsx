@@ -1,4 +1,3 @@
-// components/SearchBar.tsx
 import React, { useState, useRef } from 'react';
 import {
   View, TextInput, TouchableOpacity, FlatList,

@@ -1,4 +1,3 @@
-// components/PrivacyModal.tsx
 import React, { useRef, useEffect } from 'react';
 import {
   Modal,
@@ -12,6 +11,7 @@ import {
   PanResponder,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path, Circle, Line, Rect, Polyline } from 'react-native-svg';
@@ -24,6 +24,11 @@ interface Props {
 }
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+const REPO_LINKS = {
+  github:   'https://github.com/neweradev17/LocalMeteorology.git',
+  codeberg: 'https://codeberg.org/neweradev17/LocalMeteorology.git',
+};
 
 const Icon: React.FC<{ name: string; size?: number; color?: string }> = ({
   name,
@@ -93,8 +98,8 @@ const SECTIONS: { icon: string; headingKey: TranslationKey; bodyKey: Translation
   { icon: 'shield',   headingKey: 'privacy_third_party_heading',    bodyKey: 'privacy_third_party_body' },
 ];
 
-const SWIPE_DOWN_THRESHOLD = 40; 
-const DISMISS_SCROLL_THRESHOLD = -30; 
+const SWIPE_DOWN_THRESHOLD = 40;
+const DISMISS_SCROLL_THRESHOLD = -30;
 
 const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
   const { t } = useLanguage();
@@ -183,7 +188,6 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
       onRequestClose={onClose}
       statusBarTranslucent
     >
-
       <Animated.View style={[styles.backdrop, { opacity: fadeAnim }]}>
         <TouchableOpacity style={StyleSheet.absoluteFill} onPress={onClose} activeOpacity={1} />
       </Animated.View>
@@ -241,6 +245,21 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
 
             <View style={styles.footer}>
               <Text style={styles.footerText}>{t('privacy_footer')}</Text>
+              <View style={styles.footerLinks}>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(REPO_LINKS.github)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.footerLink}>GitHub</Text>
+                </TouchableOpacity>
+                <Text style={styles.footerLinkSeparator}>·</Text>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(REPO_LINKS.codeberg)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.footerLink}>Codeberg</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -374,16 +393,32 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 16,
     borderRadius: 12,
-    backgroundColor: 'rgba(255,170,0,0.07)',
+    backgroundColor: 'rgba(0, 0, 0, 0.07)',
     borderWidth: 1,
-    borderColor: 'rgba(255,170,0,0.15)',
+    borderColor: '#FFAA00',
     alignItems: 'center',
+    gap: 8,
   },
   footerText: {
     fontSize: 12.5,
-    color: '#FFAA00',
-    opacity: 0.8,
+    color: '#fcc558',
     letterSpacing: 0.3,
     textAlign: 'center',
+  },
+  footerLinks: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  footerLink: {
+    fontSize: 12.5,
+    color: '#FFAA00',
+    textDecorationLine: 'underline',
+    letterSpacing: 0.3,
+  },
+  footerLinkSeparator: {
+    fontSize: 12.5,
+    color: '#FFAA00',
+    opacity: 0.4,
   },
 });

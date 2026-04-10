@@ -1,4 +1,3 @@
-//types/weather.ts
 export interface Location {
   lat: number;
   lon: number;
@@ -8,11 +7,12 @@ export interface Location {
 export interface NominatimResult {
   place_id: number;
   display_name: string;
-  name: string,
+  name: string;
   lat: string;
   lon: string;
   type: string;
   class: string;
+  namedetails?: Record<string, string>;
   address: {
     city?: string;
     town?: string;
@@ -40,7 +40,7 @@ export interface DailyWeatherData {
   temperature_2m_min: number[];
   precipitation_sum: number[];
   precipitation_probability_max: number[];
-  wind_speed_10m_max: number[]; 
+  wind_speed_10m_max: number[];
   weather_code: number[];
 }
 

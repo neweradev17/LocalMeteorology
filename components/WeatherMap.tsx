@@ -1,4 +1,3 @@
-  //WeatherMap.tsx
   import React, { useEffect, useRef } from 'react';
   import { StyleSheet, View, ActivityIndicator } from 'react-native';
   import { WebView, WebViewMessageEvent } from 'react-native-webview';
