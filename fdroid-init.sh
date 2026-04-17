@@ -26,7 +26,8 @@ grep -rlE 'languageVersion.*17|jvmToolchain.*17|VERSION_17|JvmLanguageVersion\.o
   -e 's/targetCompatibility *= *17/targetCompatibility = 21/g' \
   -e 's/languageVersion *= *17/languageVersion = 21/g' || true
 
-# Append Java 21 settings to gradle.properties
+# Ensure a newline before appending, then add Java 21 settings
+echo >> android/gradle.properties
 cat >> android/gradle.properties << 'EOF'
 org.gradle.java.home=/usr/lib/jvm/java-21-openjdk-amd64
 org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m
