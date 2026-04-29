@@ -1,0 +1,9 @@
+A clean, fast, and privacy-respecting weather app built with Expo (React Native).
+  Features:
+  * 7-day weather forecast with detailed daily views
+  * Interactive map using OpenStreetMap + Leaflet
+  * Location search powered by Nominatim
+  * No accounts, no tracking, no ads
+  * Only language preference is stored locally
+  * Supports English and Portuguese
+  All data is fetched directly from open services (Open-Meteo and OpenStreetMap).
