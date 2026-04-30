@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
-    "expo": "~55.0.12",
+    "expo": "~55.0.18",
     "expo-build-properties": "^55.0.13",
     "expo-status-bar": "~55.0.5",
-    "expo-system-ui": "~55.0.15",
+    "expo-system-ui": "~55.0.16",
     "react": "19.2.0",
-    "react-native": "0.83.4",
+    "react-native": "0.83.6",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-svg": "15.15.3",
     "react-native-webview": "13.16.0"
