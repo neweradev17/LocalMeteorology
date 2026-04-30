@@ -54,11 +54,3 @@ Thank you for respecting this!
 |-|-|
 | <img src="screenshots/01-language.png" alt="Screenshot 1" width="400"> | <img src="screenshots/02-map.png" alt="Screenshot 2" width="400"> |
 | <img src="screenshots/03-forecast.png" alt="Screenshot 3" width="400"> | <img src="screenshots/04-privacy.png" alt="Screenshot 4" width="400"> |
-
-## Installation
-
-```bash
-git clone https://github.com/neweradev17/LocalMeteorology.git
-cd LocalMeteorology
-npm install
-npx expo start
