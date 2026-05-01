@@ -27,7 +27,6 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const REPO_LINKS = {
   github:   'https://github.com/neweradev17/LocalMeteorology.git',
-  codeberg: 'https://codeberg.org/neweradev17/LocalMeteorology.git',
 };
 
 const Icon: React.FC<{ name: string; size?: number; color?: string }> = ({
@@ -251,13 +250,6 @@ const PrivacyModal: React.FC<Props> = ({ visible, onClose }) => {
                   activeOpacity={0.7}
                 >
                   <Text style={styles.footerLink}>GitHub</Text>
-                </TouchableOpacity>
-                <Text style={styles.footerLinkSeparator}>·</Text>
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(REPO_LINKS.codeberg)}
-                  activeOpacity={0.7}
-                >
-                  <Text style={styles.footerLink}>Codeberg</Text>
                 </TouchableOpacity>
               </View>
             </View>
