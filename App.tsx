@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
-import  LanguagePicker from './screens/LanguagePicker';
+import LanguagePicker from './screens/LanguagePicker';
 import { SearchBar } from './components/SearchBar';
 import { WeatherMap } from './components/WeatherMap';
 import { CurrentWeather } from './components/CurrentWeather';
@@ -15,9 +15,9 @@ import { reverseGeocode, formatPlaceName } from './utils/nominatim';
 import { ForecastData, Location, NominatimResult } from './types/weather';
 
 const MainApp: React.FC = () => {
-  const { t, isLoaded } = useLanguage();
+  const { t, isLoaded, hasChosenLanguage } = useLanguage();
   const insets = useSafeAreaInsets();
-  const [hasChosen, setHasChosen] = useState(false);
+  const [showPicker, setShowPicker] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
@@ -33,8 +33,8 @@ const MainApp: React.FC = () => {
     );
   }
 
-  if (!hasChosen) {
-    return <LanguagePicker onDone={() => setHasChosen(true)} />;
+  if (!hasChosenLanguage || showPicker) {
+    return <LanguagePicker onDone={() => setShowPicker(false)} />;
   }
 
   const handleSelectResult = async (result: NominatimResult) => {
@@ -84,7 +84,7 @@ const MainApp: React.FC = () => {
             value={searchText}
             onChangeText={setSearchText}
             onSelectResult={handleSelectResult}
-            onLanguagePress={() => setHasChosen(false)}
+            onLanguagePress={() => setShowPicker(true)}
           />
         </View>
 
@@ -110,8 +110,8 @@ const MainApp: React.FC = () => {
       )}
       {forecast && selectedLocation && !loading && (
         <>
-          <CurrentWeather forecast={forecast} location={selectedLocation} selectedIndex={selectedIndex}/>
-          <WeeklyForecast forecast={forecast} bottomInset={insets.bottom} selectedIndex={selectedIndex} onSelectIndex={setSelectedIndex}/>
+          <CurrentWeather forecast={forecast} location={selectedLocation} selectedIndex={selectedIndex} />
+          <WeeklyForecast forecast={forecast} bottomInset={insets.bottom} selectedIndex={selectedIndex} onSelectIndex={setSelectedIndex} />
         </>
       )}
     </View>

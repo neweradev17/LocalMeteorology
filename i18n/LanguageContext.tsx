@@ -9,6 +9,7 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => Promise<void>;
   t: (key: TranslationKey) => string;
   isLoaded: boolean;
+  hasChosenLanguage: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
@@ -16,16 +17,19 @@ const LanguageContext = createContext<LanguageContextType>({
   setLanguage: async () => {},
   t: (key) => key,
   isLoaded: false,
+  hasChosenLanguage: false,
 });
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('en');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasChosenLanguage, setHasChosenLanguage] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY).then((saved) => {
       if (saved === 'pt' || saved === 'en') {
         setLanguageState(saved);
+        setHasChosenLanguage(true);
       }
       setIsLoaded(true);
     });
@@ -33,6 +37,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const setLanguage = async (lang: Language) => {
     setLanguageState(lang);
+    setHasChosenLanguage(true);
     await AsyncStorage.setItem(STORAGE_KEY, lang);
   };
 
@@ -41,7 +46,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, isLoaded }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isLoaded, hasChosenLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
