@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View, TextInput, TouchableOpacity, FlatList,
-  Text, StyleSheet, ActivityIndicator, Keyboard,
+  Text, StyleSheet, Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { NominatimResult } from '../types/weather';
@@ -9,6 +9,7 @@ import { searchPlaces, formatPlaceName } from '../utils/nominatim';
 import { useLanguage } from '../i18n/LanguageContext';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
 import PrivacyModal from './PrivacyModal';
+import TooltipModal from './TooltipModal';
 
 interface Props {
   value: string;
@@ -24,7 +25,8 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
   const [focused, setFocused] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
-  const { t, language } = useLanguage();
+  const [showTooltip, setShowTooltip] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubmit = async () => {
     const query = value.trim();
@@ -75,8 +77,10 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
     setShowPrivacy(true);
   };
 
-  const languageLabel = t('menu_language');
-  const privacyLabel = t('menu_privacy');
+  const handleTooltipOption = () => {
+    setShowMenu(false);
+    setShowTooltip(true);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => setShowMenu(false)}>
@@ -100,7 +104,11 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
               />
 
               {value.length > 0 && (
-                <TouchableOpacity onPress={handleClear} style={styles.clearBtn} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                <TouchableOpacity
+                  onPress={handleClear}
+                  style={styles.clearBtn}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
                   <View style={styles.clearCircle}>
                     <Text style={styles.clearIcon}>✕</Text>
                   </View>
@@ -155,43 +163,62 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
 
         {showMenu && (
           <View style={styles.menuDropdown}>
+
+            {/* Idioma */}
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={(e) => {
-                e.stopPropagation();
-                handleLanguageOption();
-              }}
+              onPress={(e) => { e.stopPropagation(); handleLanguageOption(); }}
               activeOpacity={0.7}
             >
               <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
                 <Circle cx="12" cy="12" r="10" />
                 <Path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </Svg>
-              <Text style={styles.menuItemText}>{languageLabel}</Text>
+              <Text style={styles.menuItemText}>{t('menu_language')}</Text>
             </TouchableOpacity>
 
             <View style={styles.menuDivider} />
 
+            {/* Privacidade */}
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={(e) => {
-                e.stopPropagation();
-                handlePrivacyOption();
-              }}
+              onPress={(e) => { e.stopPropagation(); handlePrivacyOption(); }}
               activeOpacity={0.7}
             >
               <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
                 <Path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <Path d="M9 12l2 2 4-4" />
               </Svg>
-              <Text style={styles.menuItemText}>{privacyLabel}</Text>
+              <Text style={styles.menuItemText}>{t('menu_privacy')}</Text>
             </TouchableOpacity>
+
+            <View style={styles.menuDivider} />
+
+            {/* Legenda */}
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}
+              activeOpacity={0.7}
+            >
+              <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
+                <Circle cx="12" cy="12" r="10" />
+                <Line x1="12" y1="8" x2="12" y2="12" />
+                <Line x1="12" y1="16" x2="12.01" y2="16" />
+              </Svg>
+              <Text style={styles.menuItemText}>{t('menu_tooltip')}</Text>
+            </TouchableOpacity>
+
           </View>
         )}
 
         <PrivacyModal
           visible={showPrivacy}
           onClose={() => setShowPrivacy(false)}
+        />
+
+        <TooltipModal
+          visible={showTooltip}
+          onClose={() => setShowTooltip(false)}
         />
       </View>
     </TouchableWithoutFeedback>

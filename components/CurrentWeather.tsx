@@ -1,3 +1,4 @@
+//CurrentWeather.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Svg, { Path, Line, Polyline, Circle } from 'react-native-svg';

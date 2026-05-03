@@ -23,9 +23,7 @@ export type TranslationKey =
   | 'weather_thunderstorm' | 'weather_thunderstorm_hail' | 'weather_unknown'
   | 'error_forecast' | 'error_location'
   | 'lang_screen_title' | 'lang_screen_subtitle' | 'lang_screen_continue'
-
-  | 'menu_language' | 'menu_privacy'
-
+  | 'menu_language' | 'menu_privacy' | 'menu_tooltip'
   | 'privacy_title' | 'privacy_subtitle'
   | 'privacy_no_tracking_heading' | 'privacy_no_tracking_body'
   | 'privacy_local_storage_heading' | 'privacy_local_storage_body'
@@ -33,7 +31,10 @@ export type TranslationKey =
   | 'privacy_no_backend_heading' | 'privacy_no_backend_body'
   | 'privacy_third_party_heading' | 'privacy_third_party_body'
   | 'privacy_footer'
-  | 'privacy_close';
+  | 'privacy_close'
+  | 'tooltip_title' | 'tooltip_subtitle'
+  | 'tooltip_max_temp' | 'tooltip_min_temp'
+  | 'tooltip_humidity' | 'tooltip_wind'
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   pt: {
@@ -84,6 +85,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
 
     menu_language: 'Idioma',
     menu_privacy: 'Privacidade',
+    menu_tooltip: 'Legenda',
 
     privacy_title: 'Política de Privacidade',
     privacy_subtitle: 'Uma app de meteorologia que te respeita.',
@@ -99,7 +101,15 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nAmbos operam sob licenças de dados abertos e publicam as suas próprias políticas de privacidade. Nenhum exige conta ou chave de API por parte do utilizador final.',
     privacy_footer: 'Código aberto',
     privacy_close: 'Fechar',
+
+    tooltip_title: 'Legenda dos Ícones',
+    tooltip_subtitle: 'O que cada ícone significa',
+    tooltip_max_temp: 'Temperatura máxima do dia',
+    tooltip_min_temp: 'Temperatura mínima do dia',
+    tooltip_humidity: 'Humidade relativa do ar (%)',
+    tooltip_wind: 'Velocidade do vento',
   },
+
   en: {
     feels_like: 'Feels like',
     humidity: 'Humidity',
@@ -148,6 +158,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
 
     menu_language: 'Language',
     menu_privacy: 'Privacy',
+    menu_tooltip: 'Icon Guide',
 
     privacy_title: 'Privacy Policy',
     privacy_subtitle: 'A weather app that respects you.',
@@ -163,5 +174,12 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     privacy_third_party_body: 'OpenStreetMap / Nominatim — openstreetmap.org/copyright\nOpen-Meteo — open-meteo.com\n\nBoth operate under open-data licences and publish their own privacy policies. Neither requires an account or API key from end users.',
     privacy_footer: 'Open source code.',
     privacy_close: 'Close',
+
+    tooltip_title: 'Icon Guide',
+    tooltip_subtitle: 'What each icon means',
+    tooltip_max_temp: 'Maximum temperature of the day',
+    tooltip_min_temp: 'Minimum temperature of the day',
+    tooltip_humidity: 'Relative humidity (%)',
+    tooltip_wind: 'Wind speed',
   },
 };
