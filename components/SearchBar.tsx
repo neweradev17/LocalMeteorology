@@ -7,7 +7,7 @@ import {
 import { NominatimResult } from '../types/weather';
 import { searchPlaces, formatPlaceName } from '../utils/nominatim';
 import { useLanguage } from '../i18n/LanguageContext';
-import Svg, { Circle, Line, Path } from 'react-native-svg';
+import Svg, { Circle, Line, Path, Rect } from 'react-native-svg';
 import PrivacyModal from './PrivacyModal';
 import TooltipModal from './TooltipModal';
 
@@ -195,18 +195,21 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
             <View style={styles.menuDivider} />
 
             {/* Legenda */}
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}
-              activeOpacity={0.7}
-            >
-              <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
-                <Circle cx="12" cy="12" r="10" />
-                <Line x1="12" y1="8" x2="12" y2="12" />
-                <Line x1="12" y1="16" x2="12.01" y2="16" />
-              </Svg>
-              <Text style={styles.menuItemText}>{t('menu_tooltip')}</Text>
-            </TouchableOpacity>
+<TouchableOpacity
+  style={styles.menuItem}
+  onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}
+  activeOpacity={0.7}
+>
+  <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
+    <Rect x="3" y="5" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+    <Line x1="10" y1="7" x2="21" y2="7" />
+    <Rect x="3" y="13" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+    <Line x1="10" y1="15" x2="21" y2="15" />
+    <Rect x="3" y="21" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+    <Line x1="10" y1="23" x2="21" y2="23" />
+  </Svg>
+  <Text style={styles.menuItemText}>{t('menu_tooltip')}</Text>
+</TouchableOpacity>
 
           </View>
         )}

@@ -5,7 +5,7 @@ import {
   NativeSyntheticEvent, NativeScrollEvent,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Svg, { Path, Circle, Line, Polyline } from 'react-native-svg';
+import Svg, { Path, Circle, Line, Polyline, Rect } from 'react-native-svg';
 import { useLanguage } from '../i18n/LanguageContext';
 
 interface Props {
@@ -124,15 +124,18 @@ const TooltipModal: React.FC<Props> = ({ visible, onClose }) => {
           </View>
 
           <View style={styles.header}>
-            <View style={styles.headerLeft}>
-              <Svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth={1.8}>
-                <Circle cx="12" cy="12" r="10" />
-                <Line x1="12" y1="8" x2="12" y2="12" />
-                <Line x1="12" y1="16" x2="12.01" y2="16" />
-              </Svg>
-              <Text style={styles.title}>{t('tooltip_title')}</Text>
-            </View>
-          </View>
+  <View style={styles.headerLeft}>
+    <Svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth={1.8}>
+      <Rect x="3" y="4" width="4" height="4" rx="1" fill={GOLD} stroke="none" />
+      <Line x1="10" y1="6" x2="21" y2="6" stroke={GOLD} strokeLinecap="round" />
+      <Rect x="3" y="10" width="4" height="4" rx="1" fill={GOLD} stroke="none" />
+      <Line x1="10" y1="12" x2="21" y2="12" stroke={GOLD} strokeLinecap="round" />
+      <Rect x="3" y="16" width="4" height="4" rx="1" fill={GOLD} stroke="none" />
+      <Line x1="10" y1="18" x2="21" y2="18" stroke={GOLD} strokeLinecap="round" />
+    </Svg>
+    <Text style={styles.title}>{t('tooltip_title')}</Text>
+  </View>
+</View>
 
           <View style={styles.headerDivider} />
 
