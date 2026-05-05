@@ -5,7 +5,7 @@ import {
   NativeSyntheticEvent, NativeScrollEvent,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Svg, { Path, Circle, Line, Polyline, Rect } from 'react-native-svg';
+import Svg, { Path, Line, Polyline, Rect } from 'react-native-svg';
 import { useLanguage } from '../i18n/LanguageContext';
 
 interface Props {

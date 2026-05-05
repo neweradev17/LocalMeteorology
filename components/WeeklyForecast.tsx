@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ForecastData } from '../types/weather';
 import { getWeatherEntry } from '../utils/weatherCodes';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -16,18 +17,25 @@ const DAY_KEYS: TranslationKey[] = [
   'day_sun', 'day_mon', 'day_tue', 'day_wed', 'day_thu', 'day_fri', 'day_sat',
 ];
 
-const WeeklyForecast: React.FC<Props> = ({ forecast, bottomInset = 0, selectedIndex, onSelectIndex }) => {
+const WeeklyForecast: React.FC<Props> = ({ forecast, bottomInset, selectedIndex, onSelectIndex }) => {
   const { daily } = forecast;
   const { t } = useLanguage();
+  const insets = useSafeAreaInsets();
+
+  const safeBottom = bottomInset !== undefined
+    ? Math.max(bottomInset, insets.bottom)
+    : insets.bottom;
 
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>{t('forecast_title')}</Text>
-
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInset + 10}]}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: safeBottom > 0 ? safeBottom + 4 : 8 },
+        ]}
       >
         {daily.time.map((dateStr, index) => {
           const date = new Date(dateStr);
@@ -84,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 10, fontWeight: '700', color: '#ffffff',
     letterSpacing: 1.5, paddingHorizontal: 16, marginBottom: 8,
   },
-  scrollContent: {paddingHorizontal: 12, gap: 8},
+  scrollContent: { paddingHorizontal: 12, gap: 8 },
   dayCard: {
     alignItems: 'center', backgroundColor: '#0f0f0f',
     borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10,
