@@ -16,9 +16,18 @@ interface Props {
   onChangeText: (text: string) => void;
   onSelectResult: (result: NominatimResult) => void;
   onLanguagePress: () => void;
+  onMenuOpen?: (open: boolean) => void;
+  onModalOpen?: (open: boolean) => void; // ← novo: notifica quando um modal está aberto
 }
 
-const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLanguagePress }) => {
+const SearchBar: React.FC<Props> = ({
+  value,
+  onChangeText,
+  onSelectResult,
+  onLanguagePress,
+  onMenuOpen,
+  onModalOpen,
+}) => {
   const [results, setResults] = useState<NominatimResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -33,6 +42,7 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
     if (query.length < 2) return;
     Keyboard.dismiss();
     setShowMenu(false);
+    onMenuOpen?.(false);
     setLoading(true);
     try {
       const data = await searchPlaces(query);
@@ -52,6 +62,7 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
     setResults([]);
     setFocused(false);
     setShowMenu(false);
+    onMenuOpen?.(false);
     onSelectResult(result);
   };
 
@@ -64,26 +75,43 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
   const handleMenuToggle = () => {
     Keyboard.dismiss();
     setShowDropdown(false);
-    setShowMenu((prev) => !prev);
+    const next = !showMenu;
+    setShowMenu(next);
+    onMenuOpen?.(next);
   };
 
   const handleLanguageOption = () => {
     setShowMenu(false);
+    onMenuOpen?.(false);
     onLanguagePress();
   };
 
   const handlePrivacyOption = () => {
     setShowMenu(false);
+    onMenuOpen?.(false);
     setShowPrivacy(true);
+    onModalOpen?.(true); // ← bloqueia mapa ao abrir
   };
 
   const handleTooltipOption = () => {
     setShowMenu(false);
+    onMenuOpen?.(false);
     setShowTooltip(true);
+    onModalOpen?.(true); // ← bloqueia mapa ao abrir
+  };
+
+  const handlePrivacyClose = () => {
+    setShowPrivacy(false);
+    onModalOpen?.(false); // ← desbloqueia mapa ao fechar
+  };
+
+  const handleTooltipClose = () => {
+    setShowTooltip(false);
+    onModalOpen?.(false); // ← desbloqueia mapa ao fechar
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => setShowMenu(false)}>
+    <TouchableWithoutFeedback onPress={() => { setShowMenu(false); onMenuOpen?.(false); }}>
       <View style={styles.wrapper}>
         <View style={styles.row}>
           <View style={[styles.card, focused && styles.cardFocused]}>
@@ -98,7 +126,7 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
                 returnKeyType="search"
                 autoCorrect={false}
                 autoCapitalize="words"
-                onFocus={() => { setFocused(true); setShowMenu(false); }}
+                onFocus={() => { setFocused(true); setShowMenu(false); onMenuOpen?.(false); }}
                 onBlur={() => setFocused(false)}
                 onSubmitEditing={handleSubmit}
               />
@@ -195,33 +223,33 @@ const SearchBar: React.FC<Props> = ({ value, onChangeText, onSelectResult, onLan
             <View style={styles.menuDivider} />
 
             {/* Legenda */}
-<TouchableOpacity
-  style={styles.menuItem}
-  onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}
-  activeOpacity={0.7}
->
-  <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
-    <Rect x="3" y="5" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
-    <Line x1="10" y1="7" x2="21" y2="7" />
-    <Rect x="3" y="13" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
-    <Line x1="10" y1="15" x2="21" y2="15" />
-    <Rect x="3" y="21" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
-    <Line x1="10" y1="23" x2="21" y2="23" />
-  </Svg>
-  <Text style={styles.menuItemText}>{t('menu_tooltip')}</Text>
-</TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}
+              activeOpacity={0.7}
+            >
+              <Svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#FFAA00" strokeWidth={1.8}>
+                <Rect x="3" y="5" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+                <Line x1="10" y1="7" x2="21" y2="7" />
+                <Rect x="3" y="13" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+                <Line x1="10" y1="15" x2="21" y2="15" />
+                <Rect x="3" y="21" width="4" height="4" rx="1" fill="#FFAA00" stroke="none" />
+                <Line x1="10" y1="23" x2="21" y2="23" />
+              </Svg>
+              <Text style={styles.menuItemText}>{t('menu_tooltip')}</Text>
+            </TouchableOpacity>
 
           </View>
         )}
 
         <PrivacyModal
           visible={showPrivacy}
-          onClose={() => setShowPrivacy(false)}
+          onClose={handlePrivacyClose}
         />
 
         <TooltipModal
           visible={showTooltip}
-          onClose={() => setShowTooltip(false)}
+          onClose={handleTooltipClose}
         />
       </View>
     </TouchableWithoutFeedback>

@@ -1,83 +1,88 @@
-  import React, { useEffect, useRef } from 'react';
-  import { StyleSheet, View, ActivityIndicator } from 'react-native';
-  import { WebView, WebViewMessageEvent } from 'react-native-webview';
-  import { getMapHTML } from './MapHTML';
-  import { Location } from '../types/weather';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import { getMapHTML } from './MapHTML';
+import { Location } from '../types/weather';
 
-  interface Props {
-    pinLocation: Location | null;
-    onMapClick: (lat: number, lon: number) => void;
-  }
+interface Props {
+  pinLocation: Location | null;
+  onMapClick: (lat: number, lon: number) => void;
+  isMenuOpen?: boolean; // ← novo: bloqueia cliques no mapa quando o menu está aberto
+}
 
-  const WeatherMap: React.FC<Props> = ({ pinLocation, onMapClick }) => {
-    const webviewRef = useRef<WebView>(null);
-    const isReadyRef = useRef(false);
-    const pendingLocationRef = useRef<Location | null>(null);
+const WeatherMap: React.FC<Props> = ({ pinLocation, onMapClick, isMenuOpen }) => {
+  const webviewRef = useRef<WebView>(null);
+  const isReadyRef = useRef(false);
+  const pendingLocationRef = useRef<Location | null>(null);
 
-    const sendLocation = (location: Location) => {
-      if (!webviewRef.current || !isReadyRef.current) {
-        pendingLocationRef.current = location;
-        return;
-      }
-      webviewRef.current.postMessage(JSON.stringify({
-        type: 'SET_LOCATION',
-        lat: location.lat,
-        lon: location.lon,
-        name: location.name,
-      }));
-    };
-
-    useEffect(() => {
-      if (pinLocation) sendLocation(pinLocation);
-    }, [pinLocation]);
-
-    const handleMessage = (event: WebViewMessageEvent) => {
-      let data: any;
-      try { data = JSON.parse(event.nativeEvent.data); } catch { return; }
-
-      if (data.type === 'MAP_READY') {
-        isReadyRef.current = true;
-        if (pendingLocationRef.current) {
-          sendLocation(pendingLocationRef.current);
-          pendingLocationRef.current = null;
-        }
-      }
-      if (data.type === 'MAP_CLICK') {
-        onMapClick(data.lat, data.lon);
-      }
-    };
-
-    return (
-      <View style={styles.container}>
-        <WebView
-          ref={webviewRef}
-          source={{ html: getMapHTML(), baseUrl: 'https://www.openstreetmap.org' }}
-          originWhitelist={['*']}
-          onMessage={handleMessage}
-          javaScriptEnabled
-          domStorageEnabled
-          startInLoadingState
-          renderLoading={() => (
-            <View style={styles.loader}>
-              <ActivityIndicator size="large" color="#FFAA00" />
-            </View>
-          )}
-          style={styles.webview}
-        />
-      </View>
-    );
+  const sendLocation = (location: Location) => {
+    if (!webviewRef.current || !isReadyRef.current) {
+      pendingLocationRef.current = location;
+      return;
+    }
+    webviewRef.current.postMessage(JSON.stringify({
+      type: 'SET_LOCATION',
+      lat: location.lat,
+      lon: location.lon,
+      name: location.name,
+    }));
   };
 
-  export { WeatherMap };
-  export default WeatherMap;
+  useEffect(() => {
+    if (pinLocation) sendLocation(pinLocation);
+  }, [pinLocation]);
 
-  const styles = StyleSheet.create({
-    container: { flex: 1, overflow: 'hidden', borderRadius: 12 },
-    webview: { flex: 1, backgroundColor: '#0f0f0f' },
-    loader: {
-      ...StyleSheet.absoluteFill,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#0f0f0f',
-    },
-  });
+  const handleMessage = (event: WebViewMessageEvent) => {
+    let data: any;
+    try { data = JSON.parse(event.nativeEvent.data); } catch { return; }
+
+    if (data.type === 'MAP_READY') {
+      isReadyRef.current = true;
+      if (pendingLocationRef.current) {
+        sendLocation(pendingLocationRef.current);
+        pendingLocationRef.current = null;
+      }
+    }
+
+    if (data.type === 'MAP_CLICK') {
+      // Ignora cliques no mapa enquanto o menu de opções está aberto
+      if (!isMenuOpen) {
+        onMapClick(data.lat, data.lon);
+      }
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <WebView
+        ref={webviewRef}
+        source={{ html: getMapHTML(), baseUrl: 'https://www.openstreetmap.org' }}
+        originWhitelist={['*']}
+        onMessage={handleMessage}
+        javaScriptEnabled
+        domStorageEnabled
+        startInLoadingState
+        renderLoading={() => (
+          <View style={styles.loader}>
+            <ActivityIndicator size="large" color="#FFAA00" />
+          </View>
+        )}
+        style={styles.webview}
+      />
+    </View>
+  );
+};
+
+export { WeatherMap };
+export default WeatherMap;
+
+const styles = StyleSheet.create({
+  container: { flex: 1, overflow: 'hidden', borderRadius: 12 },
+  webview: { flex: 1, backgroundColor: '#0f0f0f' },
+  loader: {
+    ...StyleSheet.absoluteFill,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0f0f0f',
+  },
+});

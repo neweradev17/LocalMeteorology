@@ -24,6 +24,8 @@ const MainApp: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  // Bloqueia cliques no mapa quando o menu de opções OU um modal está aberto
+  const [blockMapClick, setBlockMapClick] = useState(false);
 
   if (!isLoaded) {
     return (
@@ -78,13 +80,19 @@ const MainApp: React.FC = () => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0a1b2a" translucent />
       <View style={styles.mapContainer}>
-        <WeatherMap pinLocation={selectedLocation} onMapClick={handleMapClick} />
+        <WeatherMap
+          pinLocation={selectedLocation}
+          onMapClick={handleMapClick}
+          isMenuOpen={blockMapClick}
+        />
         <View style={[styles.searchOverlay, { top: insets.top + 14 }]}>
           <SearchBar
             value={searchText}
             onChangeText={setSearchText}
             onSelectResult={handleSelectResult}
             onLanguagePress={() => setShowPicker(true)}
+            onMenuOpen={setBlockMapClick}
+            onModalOpen={setBlockMapClick} // ← bloqueia mapa quando modal abre/fecha
           />
         </View>
 
