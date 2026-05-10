@@ -24,7 +24,6 @@ const MainApp: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  // Bloqueia cliques no mapa quando o menu de opções OU um modal está aberto
   const [blockMapClick, setBlockMapClick] = useState(false);
 
   if (!isLoaded) {
@@ -92,7 +91,7 @@ const MainApp: React.FC = () => {
             onSelectResult={handleSelectResult}
             onLanguagePress={() => setShowPicker(true)}
             onMenuOpen={setBlockMapClick}
-            onModalOpen={setBlockMapClick} // ← bloqueia mapa quando modal abre/fecha
+            onModalOpen={setBlockMapClick}
           />
         </View>
 

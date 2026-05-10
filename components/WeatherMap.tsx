@@ -7,7 +7,7 @@ import { Location } from '../types/weather';
 interface Props {
   pinLocation: Location | null;
   onMapClick: (lat: number, lon: number) => void;
-  isMenuOpen?: boolean; // ← novo: bloqueia cliques no mapa quando o menu está aberto
+  isMenuOpen?: boolean;
 }
 
 const WeatherMap: React.FC<Props> = ({ pinLocation, onMapClick, isMenuOpen }) => {
@@ -45,7 +45,6 @@ const WeatherMap: React.FC<Props> = ({ pinLocation, onMapClick, isMenuOpen }) =>
     }
 
     if (data.type === 'MAP_CLICK') {
-      // Ignora cliques no mapa enquanto o menu de opções está aberto
       if (!isMenuOpen) {
         onMapClick(data.lat, data.lon);
       }

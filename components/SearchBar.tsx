@@ -17,7 +17,7 @@ interface Props {
   onSelectResult: (result: NominatimResult) => void;
   onLanguagePress: () => void;
   onMenuOpen?: (open: boolean) => void;
-  onModalOpen?: (open: boolean) => void; // ← novo: notifica quando um modal está aberto
+  onModalOpen?: (open: boolean) => void;
 }
 
 const SearchBar: React.FC<Props> = ({
@@ -90,24 +90,24 @@ const SearchBar: React.FC<Props> = ({
     setShowMenu(false);
     onMenuOpen?.(false);
     setShowPrivacy(true);
-    onModalOpen?.(true); // ← bloqueia mapa ao abrir
+    onModalOpen?.(true); 
   };
 
   const handleTooltipOption = () => {
     setShowMenu(false);
     onMenuOpen?.(false);
     setShowTooltip(true);
-    onModalOpen?.(true); // ← bloqueia mapa ao abrir
+    onModalOpen?.(true); 
   };
 
   const handlePrivacyClose = () => {
     setShowPrivacy(false);
-    onModalOpen?.(false); // ← desbloqueia mapa ao fechar
+    onModalOpen?.(false); 
   };
 
   const handleTooltipClose = () => {
     setShowTooltip(false);
-    onModalOpen?.(false); // ← desbloqueia mapa ao fechar
+    onModalOpen?.(false); 
   };
 
   return (
@@ -192,7 +192,6 @@ const SearchBar: React.FC<Props> = ({
         {showMenu && (
           <View style={styles.menuDropdown}>
 
-            {/* Idioma */}
             <TouchableOpacity
               style={styles.menuItem}
               onPress={(e) => { e.stopPropagation(); handleLanguageOption(); }}
@@ -207,7 +206,6 @@ const SearchBar: React.FC<Props> = ({
 
             <View style={styles.menuDivider} />
 
-            {/* Privacidade */}
             <TouchableOpacity
               style={styles.menuItem}
               onPress={(e) => { e.stopPropagation(); handlePrivacyOption(); }}
@@ -222,7 +220,6 @@ const SearchBar: React.FC<Props> = ({
 
             <View style={styles.menuDivider} />
 
-            {/* Legenda */}
             <TouchableOpacity
               style={styles.menuItem}
               onPress={(e) => { e.stopPropagation(); handleTooltipOption(); }}

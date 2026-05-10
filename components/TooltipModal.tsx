@@ -19,7 +19,6 @@ const DISMISS_SCROLL_THRESHOLD = -30;
 
 const GOLD = '#FFAA00';
 
-// Cores idênticas ao CurrentWeather
 const IconArrowUp = () => (
   <Svg width={14} height={14} viewBox="0 0 24 24" fill="none">
     <Line x1="12" y1="19" x2="12" y2="5" stroke="#ff0000" strokeWidth={2.5} strokeLinecap="round" />
