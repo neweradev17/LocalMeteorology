@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Language, TranslationKey, translations } from './translations';
 
 const STORAGE_KEY = 'app_language';
+const CHOSEN_KEY  = 'app_language_chosen';
 
 interface LanguageContextType {
   language: Language;
@@ -26,9 +27,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [hasChosenLanguage, setHasChosenLanguage] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then((saved) => {
+    Promise.all([
+      AsyncStorage.getItem(STORAGE_KEY),
+      AsyncStorage.getItem(CHOSEN_KEY),
+    ]).then(([saved, chosen]) => {
       if (saved === 'pt' || saved === 'en') {
         setLanguageState(saved);
+      }
+      if (chosen === 'true') {
         setHasChosenLanguage(true);
       }
       setIsLoaded(true);
@@ -38,7 +44,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setLanguage = async (lang: Language) => {
     setLanguageState(lang);
     setHasChosenLanguage(true);
-    await AsyncStorage.setItem(STORAGE_KEY, lang);
+    await AsyncStorage.multiSet([
+      [STORAGE_KEY, lang],
+      [CHOSEN_KEY, 'true'],
+    ]);
   };
 
   const t = (key: TranslationKey): string => {
