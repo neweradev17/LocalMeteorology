@@ -50,6 +50,21 @@ const IconWind = () => (
   </Svg>
 );
 
+const IconRain = () => (
+  <Svg width={14} height={14} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"
+      stroke="#0099ff" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+    />
+    <Line x1="8" y1="19" x2="8" y2="21" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+    <Line x1="8" y1="23" x2="8" y2="23" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+    <Line x1="12" y1="21" x2="12" y2="23" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+    <Line x1="12" y1="17" x2="12" y2="19" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+    <Line x1="16" y1="19" x2="16" y2="21" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+    <Line x1="16" y1="23" x2="16" y2="23" stroke="#0099ff" strokeWidth={2} strokeLinecap="round" />
+  </Svg>
+);
+
 const TooltipModal: React.FC<Props> = ({ visible, onClose }) => {
   const { t } = useLanguage();
 
@@ -105,6 +120,7 @@ const TooltipModal: React.FC<Props> = ({ visible, onClose }) => {
     { icon: <IconArrowDown />, label: t('tooltip_min_temp') },
     { icon: <IconDroplet />,   label: t('tooltip_humidity') },
     { icon: <IconWind />,      label: t('tooltip_wind') },
+    { icon: <IconRain />,      label: t('tooltip_precipitation') },
   ];
 
   return (

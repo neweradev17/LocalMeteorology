@@ -34,7 +34,7 @@ export type TranslationKey =
   | 'privacy_close'
   | 'tooltip_title' | 'tooltip_subtitle'
   | 'tooltip_max_temp' | 'tooltip_min_temp'
-  | 'tooltip_humidity' | 'tooltip_wind'
+  | 'tooltip_humidity' | 'tooltip_wind' | 'tooltip_precipitation'
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   pt: {
@@ -108,6 +108,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tooltip_min_temp: 'Temperatura mínima do dia',
     tooltip_humidity: 'Humidade relativa do ar (%)',
     tooltip_wind: 'Velocidade do vento',
+    tooltip_precipitation: 'Precipitação total (mm)'
   },
 
   en: {
@@ -181,5 +182,6 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     tooltip_min_temp: 'Minimum temperature of the day',
     tooltip_humidity: 'Relative humidity (%)',
     tooltip_wind: 'Wind speed',
+    tooltip_precipitation: 'Precipitation sum (mm)'
   },
 };
