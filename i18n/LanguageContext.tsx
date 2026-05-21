@@ -1,3 +1,4 @@
+//i18n/LanguageContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Language, TranslationKey, translations } from './translations';
@@ -8,6 +9,7 @@ const CHOSEN_KEY  = 'app_language_chosen';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => Promise<void>;
+  resetLanguage: () => Promise<void>;
   t: (key: TranslationKey) => string;
   isLoaded: boolean;
   hasChosenLanguage: boolean;
@@ -16,6 +18,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: async () => {},
+  resetLanguage: async () => {},
   t: (key) => key,
   isLoaded: false,
   hasChosenLanguage: false,
@@ -50,12 +53,17 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     ]);
   };
 
+  const resetLanguage = async () => {
+    setHasChosenLanguage(false);
+    await AsyncStorage.removeItem(CHOSEN_KEY);
+  };
+
   const t = (key: TranslationKey): string => {
     return translations[language][key] ?? key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, isLoaded, hasChosenLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, resetLanguage, t, isLoaded, hasChosenLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

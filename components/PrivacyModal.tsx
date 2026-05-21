@@ -318,12 +318,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#ffffff',
+    color: '#E7E9EA',
     letterSpacing: 0.3,
   },
   subtitle: {
     fontSize: 13,
-    color: '#ffffff',
+    color: '#E7E9EA',
     paddingHorizontal: 20,
     paddingTop: 2,
     paddingBottom: 14,
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
   },
   sectionBody: {
     fontSize: 13.5,
-    color: '#ffffff',
+    color: '#E7E9EA',
     lineHeight: 21,
     paddingLeft: 42,
   },

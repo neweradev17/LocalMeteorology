@@ -121,7 +121,7 @@ const SearchBar: React.FC<Props> = ({
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={t('search_placeholder')}
-                placeholderTextColor="#e0e0e0"
+                placeholderTextColor="#E7E9EA"
                 selectionColor="#FFAA00"
                 returnKeyType="search"
                 autoCorrect={false}
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 15,
-    color: '#ffffff',
+    color: '#E7E9EA',
     fontWeight: '400',
     letterSpacing: 0.2,
   },
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   resultText: {
     flex: 1,
     fontSize: 13.5,
-    color: '#e0e0e0',
+    color: '#E7E9EA',
     lineHeight: 19,
   },
   resultChevron: {
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
   },
   menuDots: {
     fontSize: 22,
-    color: '#e0e0e0',
+    color: '#E7E9EA',
     lineHeight: 24,
     marginTop: -2,
   },
@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     fontSize: 14,
-    color: '#e0e0e0',
+    color: '#E7E9EA',
     fontWeight: '500',
     letterSpacing: 0.2,
   },

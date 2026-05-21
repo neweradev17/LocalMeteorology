@@ -8,11 +8,11 @@ export const getMapHTML = (): string => `
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #e0e0e0; }
+    body { background: #E7E9EA; }
     #map { width: 100vw; height: 100vh; }
     .pin-pulse {
       width: 16px; height: 16px;
-      background: #FFAA00; border: 2px solid #fff;
+      background: #FFAA00; border: 2px solid #E7E9EA;
       border-radius: 50%; position: relative;
     }
     .pin-pulse::after {
@@ -26,7 +26,7 @@ export const getMapHTML = (): string => `
       100% { transform: scale(2);   opacity: 0; }
     }
     .leaflet-popup-content-wrapper {
-      background: #0f0f0f; color: #e0e0e0;
+      background: #0f0f0f; color: #E7E9EA;
       border: 1px solid #FFAA00; border-radius: 8px;
       font-family: sans-serif; font-size: 13px;
     }

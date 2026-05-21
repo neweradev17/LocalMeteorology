@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   headerLeft: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  title: { fontSize: 18, fontWeight: '700', color: '#ffffff', letterSpacing: 0.3 },
+  title: { fontSize: 18, fontWeight: '700', color: '#E7E9EA', letterSpacing: 0.3 },
 
   headerDivider: { height: 1, backgroundColor: '#FFAA00', marginHorizontal: 20, marginTop: 10 },
   scroll: { flex: 1 },
@@ -238,6 +238,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  label: { flex: 1, fontSize: 14, color: '#e0e0e0', letterSpacing: 0.15, lineHeight: 20 },
+  label: { flex: 1, fontSize: 14, color: '#E7E9EA', letterSpacing: 0.15, lineHeight: 20 },
   separator: { height: 1, backgroundColor: '#fcc558', marginLeft: 50 },
 });

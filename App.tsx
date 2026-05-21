@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, StyleSheet, StatusBar,
   Text, ActivityIndicator,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import * as SplashScreen from 'expo-splash-screen';
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext';
 import LanguagePicker from './screens/LanguagePicker';
 import { SearchBar } from './components/SearchBar';
@@ -14,10 +15,11 @@ import { fetchForecast } from './utils/openmeteo';
 import { reverseGeocode, formatPlaceName } from './utils/nominatim';
 import { ForecastData, Location, NominatimResult } from './types/weather';
 
+SplashScreen.preventAutoHideAsync();
+
 const MainApp: React.FC = () => {
-  const { t, isLoaded, hasChosenLanguage } = useLanguage();
+  const { t, isLoaded, hasChosenLanguage, resetLanguage } = useLanguage();
   const insets = useSafeAreaInsets();
-  const [showPicker, setShowPicker] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [forecast, setForecast] = useState<ForecastData | null>(null);
@@ -26,16 +28,18 @@ const MainApp: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [blockMapClick, setBlockMapClick] = useState(false);
 
+  useEffect(() => {
+    if (isLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [isLoaded]);
+
   if (!isLoaded) {
-    return (
-      <View style={styles.splash}>
-        <ActivityIndicator size="large" color="#ffffff" />
-      </View>
-    );
+    return null; // splash nativo está visível
   }
 
-  if (!hasChosenLanguage || showPicker) {
-    return <LanguagePicker onDone={() => setShowPicker(false)} />;
+  if (!hasChosenLanguage) {
+    return <LanguagePicker onDone={() => {}} />;
   }
 
   const handleSelectResult = async (result: NominatimResult) => {
@@ -89,7 +93,7 @@ const MainApp: React.FC = () => {
             value={searchText}
             onChangeText={setSearchText}
             onSelectResult={handleSelectResult}
-            onLanguagePress={() => setShowPicker(true)}
+            onLanguagePress={resetLanguage}
             onMenuOpen={setBlockMapClick}
             onModalOpen={setBlockMapClick}
           />
@@ -97,13 +101,13 @@ const MainApp: React.FC = () => {
 
         {loading && (
           <View style={styles.mapOverlay}>
-            <ActivityIndicator size="large" color="#ffffff" />
+            <ActivityIndicator size="large" color="#E7E9EA" />
             <Text style={styles.loadingText}>{t('loading')}</Text>
           </View>
         )}
         {!selectedLocation && !loading && (
           <View style={styles.hintContainer} pointerEvents="none">
-            <View style={[styles.hintBadge, { marginBottom: insets.bottom + 20 }]}>
+            <View style={[styles.hintBadge, { marginBottom: insets.bottom}]}>
               <Text style={styles.hintText}>{t('search_hint')}</Text>
             </View>
           </View>
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(10, 27, 42, 0.65)',
     alignItems: 'center', justifyContent: 'center', gap: 12,
   },
-  loadingText: { color: '#e0e0e0', fontSize: 14, letterSpacing: 0.5 },
+  loadingText: { color: '#E7E9EA', fontSize: 14, letterSpacing: 0.5 },
   hintContainer: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
     alignItems: 'center', justifyContent: 'flex-end',
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, paddingVertical: 8,
     borderRadius: 20, borderWidth: 1, borderColor: '#FFAA00',
   },
-  hintText: { color: '#e0e0e0', fontSize: 13 },
+  hintText: { color: '#E7E9EA', fontSize: 13 },
   errorBanner: {
     backgroundColor: '#2d1414', paddingHorizontal: 16, paddingVertical: 10,
     borderTopWidth: 1, borderTopColor: '#5c2222',

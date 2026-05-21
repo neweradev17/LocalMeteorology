@@ -1,3 +1,4 @@
+//screens/LanguagePicker.tsx
 import React, { useState } from 'react';
 import {
   View,
@@ -118,14 +119,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: isSmallScreen ? 26 : 32,
     fontWeight: '700',
-    color: '#ffffff', 
+    color: '#E7E9EA', 
     letterSpacing: 0.5,
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: isSmallScreen ? 14 : 16,
-    color: '#aaaaaa',
+    color: '#E7E9EA',
     letterSpacing: 0.3,
     textAlign: 'center',
   },
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: isSmallScreen ? 16 : 20,
     borderWidth: 1.5,
-    borderColor: '#e0e0e0',
+    borderColor: '#E7E9EA',
     gap: 16,
   },
   optionSelected: {
@@ -156,14 +157,14 @@ const styles = StyleSheet.create({
   nativeLabel: {
     fontSize: isSmallScreen ? 16 : 18,
     fontWeight: '600',
-    color: '#e0e0e0',                 
+    color: '#E7E9EA',                 
   },
   textSelected: {
-    color: '#e0e0e0',                  
+    color: '#E7E9EA',                  
   },
   englishLabel: {
     fontSize: isSmallScreen ? 12 : 13,
-    color: '#555555',
+    color: '#aaaaaa',
     marginTop: 2,
   },
   radio: {

@@ -1,3 +1,4 @@
+//WeeklyForecast.tsx
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -22,20 +23,15 @@ const WeeklyForecast: React.FC<Props> = ({ forecast, bottomInset, selectedIndex,
   const { t } = useLanguage();
   const insets = useSafeAreaInsets();
 
-  const safeBottom = bottomInset !== undefined
-    ? Math.max(bottomInset, insets.bottom)
-    : insets.bottom;
+  const safeBottom = Math.max(bottomInset ?? 0, insets.bottom);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: safeBottom + 8 }]}>
       <Text style={styles.sectionTitle}>{t('forecast_title')}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingBottom: safeBottom > 0 ? safeBottom + 4 : 8 },
-        ]}
+        contentContainerStyle={styles.scrollContent}
       >
         {daily.time.map((dateStr, index) => {
           const date = new Date(dateStr);
@@ -85,30 +81,32 @@ export default WeeklyForecast;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#0f0f0f', paddingTop: 10,
-    borderTopWidth: 1, borderTopColor: '#e0e0e0',
+    backgroundColor: '#0f0f0f',
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#E7E9EA',
   },
   sectionTitle: {
-    fontSize: 10, fontWeight: '700', color: '#ffffff',
+    fontSize: 10, fontWeight: '700', color: '#E7E9EA',
     letterSpacing: 1.5, paddingHorizontal: 16, marginBottom: 8,
   },
-  scrollContent: { paddingHorizontal: 12, gap: 8 },
+  scrollContent: { paddingHorizontal: 12, gap: 8, paddingBottom: 0 },
   dayCard: {
     alignItems: 'center', backgroundColor: '#0f0f0f',
     borderRadius: 12, paddingHorizontal: 12, paddingVertical: 10,
-    minWidth: 64, borderWidth: 1, borderColor: '#e0e0e0', gap: 3,
+    minWidth: 64, borderWidth: 1, borderColor: '#E7E9EA', gap: 3,
   },
   dayCardToday: { backgroundColor: '#0f0f0f', borderColor: '#FFAA00' },
   dayCardSelected: { borderColor: '#fcc558', backgroundColor: '#0f0f0f' },
-  dayLabel: { fontSize: 11, fontWeight: '600', color: '#e0e0e0', letterSpacing: 0.5 },
-  dayLabelToday: { color: '#e0e0e0' },
-  dayLabelSelected: { color: '#e0e0e0' },
+  dayLabel: { fontSize: 11, fontWeight: '600', color: '#E7E9EA', letterSpacing: 0.5 },
+  dayLabelToday: { color: '#E7E9EA' },
+  dayLabelSelected: { color: '#E7E9EA' },
   dayIcon: { fontSize: 22, marginVertical: 2 },
-  maxTemp: { fontSize: 15, fontWeight: '700', color: '#e0e0e0' },
+  maxTemp: { fontSize: 15, fontWeight: '700', color: '#E7E9EA' },
   minTemp: { fontSize: 12, color: '#FFAA00' },
   rainBadge: {
     backgroundColor: '#0f0f0f', borderRadius: 8,
     paddingHorizontal: 5, paddingVertical: 1, marginTop: 2,
   },
-  rainText: { fontSize: 9, color: '#e0e0e0', fontWeight: '600' },
+  rainText: { fontSize: 9, color: '#E7E9EA', fontWeight: '600' },
 });
